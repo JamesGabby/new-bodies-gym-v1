@@ -1,6 +1,9 @@
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { Hero } from "@/components/home/hero";
+import { Facilities } from "@/components/home/facilities";
+import { Timetable } from "@/components/home/timetable";
+import { ContactSection } from "@/components/home/contact-section";
 
 export default function Home() {
   return (
@@ -8,10 +11,9 @@ export default function Home() {
       <Navbar />
       <main className="flex-1">
         <Hero />
-        {/* Phase 4 components will go here: Timetable, Facilities, etc. */}
-        <section className="py-20 text-center text-muted-foreground">
-          <p>Phase 4 Content Loading...</p>
-        </section>
+        <Facilities />
+        <Timetable />
+        <ContactSection />
       </main>
       <Footer />
     </>
