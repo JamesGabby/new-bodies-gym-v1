@@ -1,36 +1,123 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+New Bodies Gym Web Application
+A high-performance, full-stack web application built for New Bodies Gym in Buxton. This platform manages class timetables, facility showcasing, member authentication, and class bookings.
 
-## Getting Started
+Built with Next.js 15+, Tailwind CSS v4, Supabase, and Shadcn UI.
 
-First, run the development server:
+🚀 Features
+Public Landing Page: High-impact "Dark & Lime" aesthetic with fully responsive design.
 
-```bash
+Dynamic Timetable: Real-time weekly class schedule fetched from the database.
+
+Facilities Showcase: Interactive grid displaying gym equipment and zones.
+
+User Authentication: Secure Sign Up / Login / Sign Out flows (Supabase Auth).
+
+Booking System: Members can book classes directly from the timetable.
+
+Admin Dashboard: Protected route for owners to:
+
+Add/Remove classes from the live schedule.
+
+View all active bookings and attendee lists.
+
+Cancel bookings.
+
+Responsive Navigation: Mobile-friendly menu and sticky header.
+
+🛠️ Tech Stack
+Framework: Next.js 15 (App Router, Server Actions)
+
+Language: TypeScript
+
+Styling: Tailwind CSS v4
+
+UI Components: Shadcn/ui
+
+Database & Auth: Supabase (PostgreSQL)
+
+Icons: Lucide React
+
+🏁 Getting Started
+1. Prerequisites
+Ensure you have the following installed:
+
+Node.js (v18 or higher)
+
+npm or pnpm
+
+2. Clone the Repository
+Bash
+
+git clone https://github.com/your-username/new-bodies-gym.git
+cd new-bodies-gym
+3. Install Dependencies
+Bash
+
+npm install
+# or
+pnpm install
+4. Environment Variables
+Create a file named .env.local in the root directory. You need your Supabase project credentials.
+
+Bash
+
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+5. Database Setup (Supabase)
+Go to your Supabase Dashboard.
+
+Navigate to the SQL Editor.
+
+Execute the initialization script to create tables (profiles, classes, weekly_schedule, bookings) and security policies.
+
+(Refer to db_schema.sql if you saved the SQL from Phase 2, or see the project documentation).
+
+6. Run the Development Server
+Bash
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Open http://localhost:3000 with your browser to see the result.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🔐 Admin Setup
+By default, all new users are "Members". To access the Admin Dashboard, you must manually promote your account.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Sign up for an account on your running local app (http://localhost:3000/login).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Go to your Supabase Dashboard -> SQL Editor.
 
-## Learn More
+Run the following query:
 
-To learn more about Next.js, take a look at the following resources:
+SQL
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+UPDATE public.profiles
+SET role = 'admin'
+WHERE id = (SELECT id FROM auth.users WHERE email = 'your_email@example.com');
+Logout and Login again. You can now access /admin.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+📂 Project Structure
+├── app/
+│   ├── admin/         # Admin Dashboard & Actions
+│   ├── auth/          # Login/Signup Logic
+│   ├── dashboard/     # User Booking View
+│   ├── layout.tsx     # Root Layout (Fonts, Global CSS)
+│   └── page.tsx       # Landing Page
+├── components/
+│   ├── home/          # Hero, Timetable, Facilities sections
+│   ├── layout/        # Navbar, Footer
+│   └── ui/            # Shadcn Reusable Components
+├── lib/
+│   ├── site-config.ts # Static content (Address, Prices, Opening Hours)
+│   └── supabase/      # Database Clients (Server & Client)
+└── middleware.ts      # Route Protection
+🚢 Deployment
+The easiest way to deploy is using Vercel.
 
-## Deploy on Vercel
+Push your code to GitHub.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Import the project into Vercel.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+In Vercel Project Settings, add your Environment Variables (NEXT_PUBLIC_SUPABASE_URL, etc).
+
+Click Deploy.
+
+License This project is private and proprietary to New Bodies Gym.
