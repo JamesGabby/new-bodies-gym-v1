@@ -52,7 +52,9 @@ export async function addScheduleSlot(formData: FormData) {
   });
 
   if (error) {
-    return { error: "Failed to add class." };
+    console.error("Failed to add class:", error.message);
+    // Ideally, you would redirect to /admin?error=true here if you wanted UI feedback
+    return; // Returns Promise<void>, which satisfies the form type
   }
 
   revalidatePath("/admin");
